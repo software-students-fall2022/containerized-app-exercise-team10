@@ -9,7 +9,7 @@ def get_db():
                          port=27017, 
                          username='root', 
                          password='pass',
-                        authSource="admin")
+                         authSource="admin")
     db = client["animal_db"]
     return db
 
