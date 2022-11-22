@@ -19,3 +19,7 @@ services:
       - ./db/init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro 
     ports:
       - 27017:27017
+  ml-client:
+    build: ./machine-learning-client
+    volumes:
+      - .:/machine-learning-client
