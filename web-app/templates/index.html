@@ -1,12 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>FlaskApp</title>
-</head>
-<body>
-    <h1>Hello World!</h1>
-    <h2>Handscribe v0.0.0.0.0.0.0.1</h2>
-    <p>have a good break everyone</p>
-</body>
-</html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Handscribe</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter&display=swap"/>
+        <link rel="stylesheet" href="../static/css/styles.css"/>
+    </head>
+
+    <body>
+        <header class="header">
+            <span class="welcome">Welcome to Handscribe!</span>
+            <span class="welcome-sub">Extract text from PDFs and images </span>
+            <form action="/" class="upload">
+                <label for="files">Upload files:</label>
+                <input type="file" id="files" name="files" multiple><br><br>
+                <input type="submit">
+            </form>
+        </header>
+
+        <section class="content">
+            {% block container %}
+            {% endblock %}
+        </section>
+
+
+        <footer class="footer">
+
+        </footer>
+    </body>
+</html> 
