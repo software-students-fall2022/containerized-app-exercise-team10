@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
+from werkzeug.utils import secure_filename
 import pymongo
 from pymongo import MongoClient
 
@@ -9,14 +10,20 @@ def get_db():
                          port=27017, 
                          username='root', 
                          password='pass',
-                        authSource="admin")
+                         authSource="admin")
     db = client["animal_db"]
     return db
 
-@app.route('/')
-def ping_server():
-    return render_template('index.html')
+@app.route('/', methods=['GET', 'POST'])
+def homepage():
+    if request.method == 'GET':
+        return render_template('index.html')
+    # files = request.files['file']
+    # files.save(secure_filename(files.filename))
+    return render_template('result.html')
 
+
+# SAMPLE CODE
 @app.route('/animals')
 def get_stored_animals():
     db=""
