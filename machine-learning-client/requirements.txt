@@ -1,1 +1,4 @@
-handprint
+# handprint
+PIL
+Image 
+pytesseract
