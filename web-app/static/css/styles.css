@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 14px;
+}
+
+/******************* HEADER STYLES *******************/
+
+.header {
+    padding: 50px;
+    background: rgb(33, 244, 219);
+}
+
+.welcome {
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    font-family: Inter;
+    font-weight: Bold;
+    font-size: 48px;
+}
+
+.welcome-sub {
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    font-family: Inter;
+    font-weight: Bold;
+    font-size: 24px;
+}
+
+.upload {
+    text-align: center;
+    border: 2px solid black;
+    padding: 5px;
+}
+
+/******************* RESULTS STYLES *******************/
+
+.results-header {
+    font-size: 20px;
+    text-align: center;
+}
