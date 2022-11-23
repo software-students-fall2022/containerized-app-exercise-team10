@@ -1,4 +1,4 @@
 # handprint
-PIL
+Pillow
 Image 
 pytesseract

@@ -1,10 +1,16 @@
-FROM ubuntu:latest
+# FROM ubuntu:latest
 FROM python:3.10.8
 
 WORKDIR /ml-client
 ADD . /ml-client
-RUN sudo apt install tesseract-ocr
-RUN sudo apt install libtesseract-dev
+# RUN apt-get -y update
+# RUN apt install 
+# RUN apt install tesseract-ocr
 
+RUN apt-get update \
+  && apt-get -y install tesseract-ocr \ 
+  && apt-get -y install libtesseract-dev
+
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
