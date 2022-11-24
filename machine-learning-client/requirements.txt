@@ -1,1 +1,4 @@
-handprint
+# handprint
+Pillow
+Image 
+pytesseract
