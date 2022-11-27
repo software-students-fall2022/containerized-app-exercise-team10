@@ -7,9 +7,7 @@ ADD . /ml-client
 # RUN apt install 
 # RUN apt install tesseract-ocr
 
-RUN apt-get update \
-  && apt-get -y install tesseract-ocr \ 
-  && apt-get -y install libtesseract-dev
+RUN apt-get update
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
