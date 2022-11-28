@@ -11,4 +11,6 @@ RUN apt-get update
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+RUN pip install numpy --upgrade
+RUN handprint -a microsoft myazurecredentials.json 
 
