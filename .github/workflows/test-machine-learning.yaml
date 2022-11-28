@@ -3,31 +3,20 @@ name: Containerized App Machine Learning Client CI
 on: 
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build:
-  runs-on: ubuntu-latest
-  timeout-minutes: 5
-  strategy:
-    matrix:
-      python-version: ["3"]
-  steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with: 
-        python-version: ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      matrix:
+        python-version: ["3"]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with: 
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install dependencies
-      run :
-
-    - name: Build 
-      run :
-
-    - name: Test with pytest
-      run :
-
-    - name: Build and Push Docker Image
-      uses: mr- 
+#add tests later for machine learning client
+#build/docker 
