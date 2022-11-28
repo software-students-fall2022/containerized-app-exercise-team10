@@ -18,8 +18,11 @@ def get_db():
 def homepage():
     if request.method == 'GET':
         return render_template('index.html')
+    
+    # from flask docs on file uploading
     # files = request.files['file']
     # files.save(secure_filename(files.filename))
+
     return render_template('result.html')
 
 
