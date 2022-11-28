@@ -1,7 +1,7 @@
 name: Containerized App Server CI
 
 on: 
-  push:
+  pull-request:
     branches: [ main ]
 
 jobs:

@@ -1,7 +1,7 @@
 name: Containerized App Machine Learning Client CI
 
 on: 
-  push:
+  pull-request:
     branches: [ main ]
 
 jobs:
