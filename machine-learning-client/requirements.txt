@@ -1,4 +1,4 @@
 handprint
-# Pillow
-# Image 
+Pillow
+Image 
 # pytesseract
