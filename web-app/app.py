@@ -17,11 +17,23 @@ def get_db():
 @app.route('/', methods=['GET', 'POST'])
 def homepage():
     if request.method == 'GET':
+        print('test')
         return render_template('index.html')
+
+    #new extracted_text collection in db
+    db = get_db()
+    extrColl = db['extracted_text']
+    # dic = {'test': 1}
+    # extrColl.insert_one(dic)
     
+    print(db.list_collection_names())
+
+
+
     # from flask docs on file uploading
     # files = request.files['file']
     # files.save(secure_filename(files.filename))
+
 
     return render_template('result.html')
 
