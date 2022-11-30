@@ -3,7 +3,9 @@ from werkzeug.utils import secure_filename
 import pymongo
 from pymongo import MongoClient
 
+UPLOAD_FOLDER = './'
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER']= UPLOAD_FOLDER
 
 def get_db():
     client = MongoClient(host='test_mongodb',
@@ -19,7 +21,6 @@ def homepage():
     if request.method == 'GET':
         print('test')
         return render_template('index.html')
-
     #new extracted_text collection in db
     db = get_db()
     extrColl = db['extracted_text']
@@ -28,7 +29,9 @@ def homepage():
     
     print(db.list_collection_names())
 
-
+    f = request.files['file']
+    f.save(secure_filename(f.filename))
+    print(f, 'files saved')
 
     # from flask docs on file uploading
     # files = request.files['file']
