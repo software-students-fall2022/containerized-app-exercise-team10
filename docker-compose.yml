@@ -3,7 +3,7 @@ services:
     build: .
     command: python -u ./web-app/app.py
     ports:
-      - "5000:5000"
+      - "3000:3000"
     volumes:
       - .:/app
     links:
@@ -18,7 +18,7 @@ services:
     volumes:
       - ./db/init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro 
     ports:
-      - 27017:27017
+      - 5002:5002
   ml-client:
     build: ./machine-learning-client
     volumes:
