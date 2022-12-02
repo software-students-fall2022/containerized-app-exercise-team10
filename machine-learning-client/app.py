@@ -1,8 +1,11 @@
-import handprint
+# import handprint
 from PIL import Image
+from flask import Flask, request
+import requests 
 import os 
 import glob
 
+app = Flask(__name__)
 
 def get_images():
     '''function that fetches all images in the current 
@@ -50,15 +53,32 @@ def delete_process_files():
         if item.endswith("-microsoft.txt") or item.endswith("-microsoft.png") or item.endswith("-microsoft.json"):
             os.remove(os.path.join(curr_dir, item))
 
+
+@app.route('/process', methods=["POST"])
+def process():
+    if request.method == "POST":
+        print(request)
+        # TODO: get image from request and save it
+        return "received"
+
+    
+        # if request.files.get("image"):
+        #     # read the image in PIL format
+        #     image = request.files["image"].read()
+        #     image = Image.open(io.BytesIO(image))
+        #     img_str = str(image)
+
 if __name__ == "__main__":    
-    # TODO:  # get image uploaded on the web application  
-    # for now, we're using a sample image from Google 
-    images = get_images() # fetch images in the local directory 
-    # call the tool on the images in the directory 
-    for image in images:
-        print(image)
-        os.system("handprint -s microsoft -e " + image)
-    annotated_images = get_annotated_images()
-    # TODO: save annontated imahes somewhere
-    print_extracted_text(get_raw_text_data())
-    delete_process_files()
+    # # TODO:  # get image uploaded on the web application  
+    # # for now, we're using a sample image from Google 
+    # images = get_images() # fetch images in the local directory 
+    # # call the tool on the images in the directory 
+    # for image in images:
+    #     print(image)
+    #     os.system("handprint -s microsoft -e " + image)
+    # annotated_images = get_annotated_images()
+    # # TODO: save annontated imahes somewhere
+    # print_extracted_text(get_raw_text_data())
+    # delete_process_files()
+
+    app.run(host="localhost", port=5002)

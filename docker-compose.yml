@@ -1,11 +1,11 @@
 services:
   app:
     build: ./web-app
-    command: python -u ./web-app/app.py
+    # command: python -u ./web-app/app.py
     ports:
-      - "5000:5000"
+      - "5001:5000"
     volumes:
-      - .:/app
+      - .:/web-app
     links:
       - db
   db:
@@ -18,8 +18,10 @@ services:
     volumes:
       - ./db/init-db.js:/docker-entrypoint-initdb.d/init-db.js
     ports:
-      - 27017:27017
+      - "27017:27017"
   ml-client:
     build: ./machine-learning-client
     volumes:
       - .:/machine-learning-client
+    ports:
+      - "5002:5002"
