@@ -1,7 +1,7 @@
 services:
   app:
     build: ./web-app
-    command: python -u ./web-app/app.py
+    # command: python -u ./web-app/app.py
     ports:
       - "3000:3000"
     volumes:
