@@ -81,4 +81,4 @@ if __name__ == "__main__":
     # print_extracted_text(get_raw_text_data())
     # delete_process_files()
 
-    app.run(host="127.0.0.1", port=5002)
+    app.run(host="localhost", port=5002)

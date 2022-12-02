@@ -23,5 +23,5 @@ RUN pip install -r requirements.txt
 RUN handprint -a microsoft myazurecredentials.json
 
 # run ML app
-CMD ["python", "app.py"]
+CMD ["flask", "run", "--host", "localhost"]
 EXPOSE 5002
