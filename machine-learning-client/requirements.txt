@@ -3,5 +3,5 @@ Pillow
 Image
 requests
 flask
-numpy
+# numpy
 # pytesseract
