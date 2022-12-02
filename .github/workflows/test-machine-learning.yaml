@@ -1,4 +1,4 @@
-name: Containerized App Machine Learning Client CI
+name: Machine Learning Client CI
 
 on: 
   pull_request:

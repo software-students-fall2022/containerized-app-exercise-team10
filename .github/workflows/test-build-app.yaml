@@ -1,4 +1,4 @@
-name: Containerized App Server CI
+name: App Web Server CI
 
 on: 
   pull_request:

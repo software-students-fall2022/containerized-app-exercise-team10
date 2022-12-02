@@ -1,4 +1,7 @@
 handprint
 Pillow
-Image 
+Image
+requests
+flask
+numpy
 # pytesseract
