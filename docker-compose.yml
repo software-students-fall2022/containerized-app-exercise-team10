@@ -1,6 +1,6 @@
 services:
   app:
-    build: .
+    build: ./web-app
     command: python -u ./web-app/app.py
     ports:
       - "3000:3000"
@@ -16,7 +16,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=pass
     volumes:
-      - ./db/init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro 
+      - ./db/init-db.js:/docker-entrypoint-initdb.d/init-db.js
     ports:
       - 5002:5002
   ml-client:

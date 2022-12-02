@@ -6,6 +6,7 @@ import os
 import glob
 import requests
 
+UPLOAD_FOLDER = './'
 app = Flask(__name__)
 UPLOAD_FOLDER = os.getcwd()
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -28,7 +29,21 @@ def allowed_file(filename):
 @app.route('/', methods=['GET', 'POST'])
 def homepage():
     if request.method == 'GET':
+        print('test')
         return render_template('index.html')
+    #new extracted_text collection in db
+    db = get_db()
+    extrColl = db['extracted_text']
+    # dic = {'test': 1}
+    # extrColl.insert_one(dic)
+    
+    print(db.list_collection_names())
+
+    f = request.files['file']
+    f.save(secure_filename(f.filename))
+    print(f, 'files saved')
+
+    # from flask docs on file uploading
     # files = request.files['file']
     # files.save(secure_filename(files.filename))
     if request.method == 'POST':
