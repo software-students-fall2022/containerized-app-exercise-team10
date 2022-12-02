@@ -1,7 +1,7 @@
-handprint
-Pillow
-Image
-requests
-flask
+# handprint
+# Pillow
+# Image
+# requests
+# flask
 # numpy
 # pytesseract
