@@ -16,11 +16,11 @@ def test_homepage_route_content():
      assert 'Welcome to Handscribe!' in html
      assert 'Extract text from PDFs and images' in html
      
-def test_homepage_POST_request():
-    url='/'
-    client = app.test_client()
-    response = client.post(url)
-    assert response.status_code==200
+# def test_homepage_POST_request():
+#     url='/'
+#     client = app.test_client()
+#     response = client.post(url)
+#     assert response.status_code==200
 
 def test_invalid_route():
     url='/home'
