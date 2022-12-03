@@ -22,7 +22,13 @@ jobs:
           cd web-app
           python -m pip install --upgrade pip
           pip install pytest
-          pip install -r requirements.txt
+          pip install requests
+          pip install flask
+          pip install flask-pymongo
+          pip intall handprint
+          pip install Pillow
+          pip install Image
+
       - name: Run tests
         run: |
           cd web-app
