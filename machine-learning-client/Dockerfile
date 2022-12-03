@@ -2,6 +2,8 @@
 # FROM ubuntu:latest
 FROM python:3.10.8
 
+EXPOSE 5002
+
 # set working dir within image
 WORKDIR /ml-client
 
@@ -20,8 +22,8 @@ RUN pip install -r requirements.txt
 # RUN pip install numpy --upgrade
 
 # configure cloud service credentials 
-RUN handprint -a microsoft myazurecredentials.json
+# CMD ["flask", "run", "--host=localhost", "--port=5002"]
 
 # run ML app
-CMD ["flask", "run", "--host", "localhost"]
-EXPOSE 5002
+CMD flask run -h 0.0.0.0 -p 5002
+# EXPOSE 5002
