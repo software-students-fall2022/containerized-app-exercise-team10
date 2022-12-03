@@ -1,8 +1,8 @@
 # base image on required python build
-# FROM ubuntu:latest
 FROM python:3.10.8
 
-EXPOSE 5002
+# expose port 3000 to outside of container
+EXPOSE 3000
 
 # set working dir within image
 WORKDIR /ml-client
@@ -10,20 +10,9 @@ WORKDIR /ml-client
 # copy current dir contents into image dir
 ADD . /ml-client
 
-# ubuntu + tesseract setup
-# RUN apt-get -y update
-# RUN apt install 
-# RUN apt install tesseract-ocr
-# RUN apt-get update
-
 # pip install reqs
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-# RUN pip install numpy --upgrade
-
-# configure cloud service credentials 
-# CMD ["flask", "run", "--host=localhost", "--port=5002"]
 
 # run ML app
 CMD flask run -h 0.0.0.0 -p 3000
-EXPOSE 3000

@@ -1,11 +1,19 @@
-# import handprint
-from PIL import Image
 from flask import Flask, request
-import requests 
-import os 
-import glob
+from PIL import Image
+from flask_pymongo import PyMongo
+import os, glob, requests
+# import handprint
 
+
+# setup
 app = Flask(__name__)
+app.config['MONGO_URI'] = 'mongodb://db:27017/project4'
+app.secret_key = os.urandom(24)
+client = PyMongo(app)
+
+
+
+
 
 def get_images():
     '''function that fetches all images in the current 
@@ -54,10 +62,16 @@ def delete_process_files():
             os.remove(os.path.join(curr_dir, item))
 
 
+
+
+
+
+
+# routes
 @app.route('/process', methods=["GET"])
 def process():
     if request.method == "GET":
-        print(request)
+        print(request, file=os.stderr)
         # TODO: get image from request and save it
         return "received"
 
@@ -68,6 +82,11 @@ def process():
         #     image = Image.open(io.BytesIO(image))
         #     img_str = str(image)
 
+
+
+
+
+# run server
 if __name__ == "__main__":    
     # # TODO:  # get image uploaded on the web application  
     # # for now, we're using a sample image from Google 
