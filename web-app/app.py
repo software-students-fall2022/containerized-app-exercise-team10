@@ -62,7 +62,7 @@ def homepage():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             flash("image uploaded")
-            send_image("http://localhost:5002/process")
+            send_image("http://ml-client:3000/process")
             print("here")
             return  render_template('result.html')# TODO: this is just temporary
     return render_template('result.html')
@@ -89,4 +89,4 @@ def get_stored_animals():
             db.close()
 
 if __name__=='__main__':
-    app.run(host="localhost", port=5000)
+    app.run(host="0.0.0.0", port=3000)

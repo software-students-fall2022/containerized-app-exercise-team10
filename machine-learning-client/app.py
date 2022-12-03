@@ -54,9 +54,9 @@ def delete_process_files():
             os.remove(os.path.join(curr_dir, item))
 
 
-@app.route('/process', methods=["POST"])
+@app.route('/process', methods=["GET"])
 def process():
-    if request.method == "POST":
+    if request.method == "GET":
         print(request)
         # TODO: get image from request and save it
         return "received"
@@ -81,4 +81,4 @@ if __name__ == "__main__":
     # print_extracted_text(get_raw_text_data())
     # delete_process_files()
 
-    app.run(host="localhost", port=5002)
+    app.run(host="0.0.0.0", port=3000)
