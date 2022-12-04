@@ -48,7 +48,7 @@ def get_raw_text_data():
     function returns the text read by handprint
     '''
     text_file =  glob.glob("*-microsoft.txt")
-    return text_file 
+    return text_file[0]
 
 def get_extracted_text(text):
     '''
