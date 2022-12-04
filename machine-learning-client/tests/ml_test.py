@@ -33,6 +33,7 @@ class Tests:
     def test_get_annotated_images(self):
         image=get_annotated_images()
         assert len(image)==1
+        assert ".png" in image[0]
         assert "testImage2-microsoft.png" in image
        
     #Valid get_extracted_text test
