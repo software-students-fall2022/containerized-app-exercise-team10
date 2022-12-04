@@ -58,7 +58,6 @@ def results():
 
     print(f'id:{id}', file=sys.stderr)
     print(img_doc, file=sys.stderr)
-    client.close()
 
     return render_template('results.html', extracted_text=img_doc['img_text'])
 
