@@ -1,15 +1,24 @@
-from flask import Flask, request,render_template, redirect, flash
+from flask import Flask, request,render_template, redirect, flash, Response
 # from PIL import Image
-from flask_pymongo import PyMongo
+from pymongo import MongoClient
+import pymongo
 import os, glob, requests
 # import handprint
 from werkzeug.utils import secure_filename
 
 # setup
 app = Flask(__name__)
-app.config['MONGO_URI'] = 'mongodb://db:27017/project4'
 app.secret_key = os.urandom(24)
-client = PyMongo(app)
+
+def get_db():
+    client = MongoClient(host='db',
+                        port=27017, 
+                        username='root', 
+                        password='pass',
+                        authSource="admin")
+    db = client["project4"]
+    return db
+
 
 
 UPLOAD_FOLDER = os.getcwd()
@@ -112,8 +121,15 @@ def process():
             # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             file.save(secure_filename(file.filename))
             text = process_image() # get text 
+            
+            db = get_db()
+
+            id = db.images.insert_one({
+                'img_text' : text
+            }).inserted_id
+
             delete_process_files() # delete uploaded images 
-            return  render_template('results.html', extracted_text=text) # TODO: display result in web app instead of here  
+            return Response(status=200)
 
 
 # run server
