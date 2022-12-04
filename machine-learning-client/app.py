@@ -6,7 +6,7 @@ import os, glob, sys
 
 ################## setup ##################
 app = Flask(__name__)
-UPLOAD_FOLDER = os.getcwd()
+UPLOAD_FOLDER = './'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = os.urandom(24)
@@ -64,23 +64,25 @@ def delete_process_files(filename):
     function used to clean the directory from the data output 
     of the tool 
     '''
-    curr_dir = os.getcwd()
+    curr_dir = UPLOAD_FOLDER
     files = os.listdir(curr_dir)
     for item in files:
         if  item.endswith("-microsoft.txt") or \
             item.endswith("-microsoft.png") or \
+            item.endswith("-microsoft.jpeg") or \
             item.endswith("-microsoft.json") or \
-            item.endswith(filename):
+            'handprint-all' in item or \
+            filename in item:
             os.remove(os.path.join(curr_dir, item))
 
 def process_image():
     images = get_images()
 
     for image in images:
-        # print("handprint -s microsoft -e " + image, file=sys.stderr)
+        print(f"handprint -s microsoft -e ||{image}||", file=sys.stderr)
 
         # run handprint
-        os.system("handprint -s microsoft -e " + image)
+        os.system(f"handprint -s microsoft -e {image}")
 
         text = get_extracted_text(get_raw_text_data())
 
