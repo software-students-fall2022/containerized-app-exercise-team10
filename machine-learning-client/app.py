@@ -110,7 +110,8 @@ def process():
         if file and allowed_file(file.filename):
             # save file
             filename = secure_filename(file.filename)
-            file.save(filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            # file.save(filename)
 
             # get text 
             text = process_image() 
