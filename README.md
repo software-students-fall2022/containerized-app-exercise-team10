@@ -32,10 +32,70 @@ app  |  Server running on port https://localhost:3000
 ### 5. App is ready for use
 From here, just interact with the form on the homepage, and extract your text from your images!
 
+## Run Unit Tests
+
+### 1. Activate virtual environment
+If you are currently running the docker containers from your terminal, stop them with ```CTRL+C```
+
+Set up and activate a virtual environment in the root directory with:
+
+```
+python3 -m venv env
+
+source env/bin/activate
+```
+
+### 2. Install testing dependencies
+
+Once you have activated your virtual environment, install the requisite testing packages with:
+
+```
+pip install -r requirements.txt
+```
+
+### 3. Navigate to testing directory
+
+If you want to test the machine learning client code, execute:
+```
+cd machine-learning-client
+```
+
+Or, if you want to test the web app code, execute:
+
+```
+cd web-app
+```
+
+
+
+### 3. Run tests
+
+To run tests with coverage reports, execute in your terminal:
+
+```
+coverage run -m pytest
+
+coverage report -m
+```
+
+Sample coverage report output:
+
+```
+Name                Stmts   Miss  Cover
+---------------------------------------
+app.py                 63     20    68%
+tests/__init__.py       0      0   100%
+tests/ml_test.py       72      0   100%
+---------------------------------------
+TOTAL                 135     20    85%
+```
+Machine learning client code coverage: **68%**
+
+Web app code coverage: **add_%_here**
 
 ## Authors
 [Danilo Montes](https://github.com/danilo-montes) \
-[]() \
+[Bhavig Pointi](https://github.com/bpointi) \
 []() \
 []() \
 []() \
