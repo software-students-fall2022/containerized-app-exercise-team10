@@ -14,8 +14,7 @@ app.secret_key = os.urandom(24)
 def get_db():
     client = MongoClient(host='db',
                         port=27017)
-    db = client.project_four
-    return db
+    return client
 
 
 
@@ -88,6 +87,7 @@ def process_image():
 
     for image in images:
         #     print(image)
+        print("handprint -s microsoft -e " + image, file=sys.stderr)
         os.system("handprint -s microsoft -e " + image)
         # annotated_images = get_annotated_images()
         # # TODO: save annontated imahes somewhere
@@ -120,9 +120,8 @@ def process():
             file.save(secure_filename(file.filename))
             text = process_image() # get text 
             
-            db = get_db()
-            
-
+            client = get_db()
+            db = client['project4']
 
             id = db.images.insert_one({
                 'img_text' : text
@@ -132,6 +131,8 @@ def process():
             print(f'id:{id}', file=sys.stderr)
             print(db.list_collection_names(), file=sys.stderr)
             delete_process_files() # delete uploaded images 
+            client.close()
+            
             return redirect(f'http://localhost:3000/results?id={id}')
 
 
