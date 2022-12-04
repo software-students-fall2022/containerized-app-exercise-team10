@@ -25,7 +25,7 @@ jobs:
           pip install requests
           pip install flask
           pip install flask-pymongo
-          pip install handprint
+          python -m pip install handprint --upgrade
           pip install Pillow
           pip install Image
           
