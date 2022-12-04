@@ -126,7 +126,7 @@ def process():
             }).inserted_id
 
             delete_process_files() # delete uploaded images 
-            return redirect(f'http://localhost:3000?id&{id}')
+            return redirect(f'http://localhost:3000/results?id&{id}')
 
 
 # run server
