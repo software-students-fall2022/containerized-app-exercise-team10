@@ -82,7 +82,7 @@ class Tests:
 
     #ROUTE: (valid) route handler for GET request to '/'
     #Test with file sent and no file sent
-    def test_post(self):
+    def test_general_post_request(self):
         file = "testwrite.jpg"
         data = {
         'image': (open(file, 'rb'), file)
