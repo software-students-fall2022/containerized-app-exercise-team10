@@ -113,4 +113,5 @@ class Tests:
             'picture': {get_images()[0]},
         })
         # assert response.status_code==200
-        assert response.request.path == "http://localhost:3000/results"
+        # assert response.request.path == "http://localhost:3000/results"
+        assert response.request.base_url == "http://localhost/"
