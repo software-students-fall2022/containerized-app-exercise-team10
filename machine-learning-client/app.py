@@ -8,10 +8,11 @@ from werkzeug.utils import secure_filename
 
 # setup
 app = Flask(__name__)
+app.config['MONGO_URI'] = 'mongodb://db:27017/project4'
 app.secret_key = os.urandom(24)
 
 def get_db():
-    client = MongoClient(host='localhost',
+    client = MongoClient(host='db',
                         port=27017)
     db = client["project4"]
     return db
