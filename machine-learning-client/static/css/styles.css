@@ -1,14 +1,17 @@
+body{
+    font-size:24px;
+}
+
 * {
     box-sizing: border-box;
 }
 
-body {
-    font-size: 14px;
-}
+
 
 /******************* HEADER STYLES *******************/
 
 .header {
+    min-height:20px;
     padding: 50px;
     background: rgb(33, 244, 219);
 }
@@ -18,7 +21,8 @@ body {
     color: rgba(0, 0, 0, 1);
     font-family: Inter;
     font-weight: Bold;
-    font-size: 48px;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .welcome-sub {
@@ -26,13 +30,14 @@ body {
     color: rgba(0, 0, 0, 1);
     font-family: Inter;
     font-weight: Bold;
-    font-size: 24px;
+    font-size: 1rem;
 }
 
 .upload {
     text-align: center;
     border: 2px solid black;
     padding: 5px;
+    font-size: 1rem;
 }
 
 /******************* RESULTS STYLES *******************/
