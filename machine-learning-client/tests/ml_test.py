@@ -7,6 +7,7 @@ from app import get_raw_text_data
 from app import get_extracted_text
 from app import process_image
 
+
 class Tests:
 
 #Valid Function Tests
@@ -15,11 +16,14 @@ class Tests:
     def test_get_image(self):
         images=get_images()
         assert len(images)==1
+        assert images[0]=="testwrite.jpg"
+        assert (".jpg" in images[0])==True
 
     #Valid get_raw_text_data test
     def test_get_raw_text_data(self):
         file=get_raw_text_data()
         #Make sure it gets the file
+        assert "txt" in file
         assert file=='testTxtFile-microsoft.txt'
         assert isinstance(file,str)
     
@@ -37,14 +41,17 @@ class Tests:
         text=process_image()
         assert isinstance(text,str)
         
-#Invalid Function sTests
+#Invalid Extraction Tests
 #-------------------------------------------------------------------
-   
-   #Invalid get_raw_text_data test: Checks for incorrect file
-    def test_get_raw_text_data_invalid(self):
+    #Invalid get_images test: Check that other file types not extracted
+    def test_invalid_get_image(self):
+        images=get_images()
+        assert (".txt" in images[0])==False
+
+   #Invalid get_raw_text_data test: Checks that only text file is gotten 
+    def test_invalid_get_raw_text_data_invalid(self):
         file=get_raw_text_data()
-        assert (file=='testTxtFile.txt')==False
-   #Process image-no image error
+        assert (".jpg" in file)==False
    
 
 #Handle Route Tests
