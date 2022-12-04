@@ -13,6 +13,8 @@ ADD . /ml-client
 # pip install reqs
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+RUN pip install numpy --upgrade
+RUN handprint -a microsoft myazurecredentials.json
 
 # run ML app
 CMD flask run -h 0.0.0.0 -p 3002
