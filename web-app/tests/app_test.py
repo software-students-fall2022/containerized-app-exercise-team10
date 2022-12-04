@@ -1,37 +1,37 @@
 import pytest
 from app import app
+from app import get_db
+import mongomock
 
 
-#ROUTE: route handler for GET request to '/'
+client = mongomock.MongoClient()
+collection = client.db.collection
 def test_homepage_route():
     url='/'
     client = app.test_client()
     response = client.get(url)
-    assert response.status_code==200
+    assert response.status_code==302
 
-#ROUTE: (invalid) route handler for GET request to '/'
+"""def test_results_route():
+    url='/results'
+    client = app.test_client()
+    response = client.get(url)
+    assert response.status_code==200
+"""
 def test_invalid_route():
     url='/home'
     client = app.test_client()
     response = client.get(url)
     assert response.status_code==404
 
-#FUNCTION: homepage renders expected information
-def test_homepage_route_content():
-     url='/'
-     client = app.test_client()
-     response = client.get(url)
-     html = response.data.decode()
-     assert 'Welcome to Handscribe!' in html
-     assert 'Extract text from PDFs and images' in html
+def test_allowed_file():
+    from app import allowed_file
+    test_file = "writing.png"
+    assert allowed_file(test_file) == True
 
-#ROUTE: route handler for POST request to '/'
-# def test_homepage_POST_request():
-#     url='/'
-#     client = app.test_client()
-#     response = client.post(url)
-#     assert response.status_code==200
-
-
-
-# def test_result_rendering():
+def test_get_db():
+    client = mongomock.MongoClient()
+    get_db(client)
+    db = get_db(client)
+    #captured = capsys.readouterr()
+    assert db == client.project_four
