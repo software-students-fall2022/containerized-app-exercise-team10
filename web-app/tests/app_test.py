@@ -27,6 +27,7 @@ def test_invalid_route():
 def test_allowed_file():
     from app import allowed_file
     test_file = "writing.png"
+    assert allowed_file(test_file) == True
 
 def test_get_db():
     client = mongomock.MongoClient()
