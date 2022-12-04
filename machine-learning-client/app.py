@@ -1,17 +1,12 @@
-from flask import Flask, request,render_template, redirect, flash
-from pymongo import MongoClient
-import os, glob, requests, sys
+from flask          import Flask, request,render_template, redirect, flash
+from pymongo        import MongoClient
 from werkzeug.utils import secure_filename
-# from PIL import Image
-# import pymongo
-# import handprint
-
-
+import os, glob, sys
 
 
 ################## setup ##################
 app = Flask(__name__)
-UPLOAD_FOLDER = os.getcwd()
+UPLOAD_FOLDER = './'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = os.urandom(24)
@@ -31,11 +26,9 @@ def allowed_file(filename):
 
 ################## Handprint functions ##################
 def get_images():
-    '''function that fetches all images in the current 
+    '''
+    function that fetches all images in the current 
     directory 
-    TODO: this function will need to be rewritten to fetch
-    images from the web application. for now, it is getting the images
-    used for testing from the current directory.
     '''
     images = glob.glob("*.jpg") + glob.glob("*.png") + glob.glob("*.jpeg")
     return images
@@ -71,28 +64,25 @@ def delete_process_files(filename):
     function used to clean the directory from the data output 
     of the tool 
     '''
-    curr_dir = os.getcwd()
+    curr_dir = UPLOAD_FOLDER
     files = os.listdir(curr_dir)
     for item in files:
         if  item.endswith("-microsoft.txt") or \
             item.endswith("-microsoft.png") or \
+            item.endswith("-microsoft.jpeg") or \
             item.endswith("-microsoft.json") or \
-            item.endswith(filename):
+            'handprint-all' in item or \
+            filename in item:
             os.remove(os.path.join(curr_dir, item))
 
 def process_image():
     images = get_images()
 
     for image in images:
-        #     print(image)
-
-        print("handprint -s microsoft -e " + image, file=sys.stderr)
+        # print(f"handprint -s microsoft -e ||{image}||", file=sys.stderr)
 
         # run handprint
-        os.system("handprint -s microsoft -e " + image)
-
-        # annotated_images = get_annotated_images()
-        # # TODO: save annontated imahes somewhere
+        os.system(f"handprint -s microsoft -e {image}")
 
         text = get_extracted_text(get_raw_text_data())
 
@@ -108,14 +98,6 @@ def process():
     if request.method == "GET":
         return render_template('index.html')
 
-
-    #     print(request, file=os.stderr)
-    #     # TODO: get image from request and save it
-    #     return "received"
-    
-
-
-
     if request.method == "POST":
          # check that file exists
         if 'file' not in request.files:
@@ -130,25 +112,25 @@ def process():
         if file and allowed_file(file.filename):
             # save file
             filename = secure_filename(file.filename)
-            # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            file.save(filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            # file.save(filename)
 
             # get text 
             text = process_image() 
             
             # db connection
             client = get_db()
-            db = client['project4']
+            db = client['project_four']
 
             # insert text into db
             id = db.images.insert_one({
                 'img_text' : text
             }).inserted_id
 
-            print(db.images.find_one({'_id' : id} ), file=sys.stderr)
-            print("here", file=sys.stderr)
-            print(f'id:{id}', file=sys.stderr)
-            print(db.list_collection_names(), file=sys.stderr)
+            # print(db.images.find_one({'_id' : id} ), file=sys.stderr)
+            # print("here", file=sys.stderr)
+            # print(f'id:{id}', file=sys.stderr)
+            # print(db.list_collection_names(), file=sys.stderr)
 
             delete_process_files(filename) # delete uploaded images 
 
@@ -158,6 +140,6 @@ def process():
             return redirect(f'http://localhost:3000/results?id={id}')
 
 
-# run server
+################## run server ##################
 if __name__ == "__main__":    
     app.run(host="0.0.0.0", port=3002)
