@@ -16,10 +16,7 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 def get_db():
     client = MongoClient(host='db',
-                         port=27017, 
-                         username='root', 
-                         password='pass',
-                         authSource="admin")
+                         port=27017)
     db = client["project4"]
     return db
 
