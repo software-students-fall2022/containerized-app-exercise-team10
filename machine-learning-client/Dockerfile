@@ -2,7 +2,7 @@
 FROM python:3.10.8
 
 # expose port 3000 to outside of container
-EXPOSE 3000
+EXPOSE 3002
 
 # set working dir within image
 WORKDIR /ml-client
@@ -15,4 +15,4 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # run ML app
-CMD flask run -h 0.0.0.0 -p 3000
+CMD flask run -h 0.0.0.0 -p 3002

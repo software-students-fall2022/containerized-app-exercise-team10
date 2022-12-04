@@ -1,5 +1,5 @@
-from flask import Flask, request
-from PIL import Image
+from flask import Flask, request,render_template, redirect
+# from PIL import Image
 from flask_pymongo import PyMongo
 import os, glob, requests
 # import handprint
@@ -68,12 +68,18 @@ def delete_process_files():
 
 
 # routes
-@app.route('/process', methods=["GET"])
+@app.route('/', methods=['GET','POST'])
 def process():
     if request.method == "GET":
-        print(request, file=os.stderr)
-        # TODO: get image from request and save it
-        return "received"
+    #     print(request, file=os.stderr)
+    #     # TODO: get image from request and save it
+    #     return "received"
+        return render_template('index.html')
+    
+    if request.method == "POST":
+         # check that file exists
+        if 'file' not in request.files:
+            redirect('/')      
 
     
         # if request.files.get("image"):
@@ -100,4 +106,4 @@ if __name__ == "__main__":
     # print_extracted_text(get_raw_text_data())
     # delete_process_files()
 
-    app.run(host="0.0.0.0", port=3000)
+    app.run(host="0.0.0.0", port=3002)
