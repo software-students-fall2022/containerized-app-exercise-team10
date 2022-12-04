@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template, request, redirect, flash
 from werkzeug.utils import secure_filename
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 import pymongo
 import os, glob, requests, sys
 from bson.objectid import ObjectId
@@ -32,6 +33,7 @@ def get_db():
     print(db.list_collection_names(), sys.stderr)
     return db
 
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -53,6 +55,7 @@ def homepage():
 def results():
     db = get_db()
     print(db.list_collection_names())
+
     id = request.args.get('id')
 
     img_doc = db.images.find_one(
@@ -61,6 +64,7 @@ def results():
 
     print(f'id:{id}', file=sys.stderr)
     print(img_doc, file=sys.stderr)
+    client.close()
 
     return render_template('results.html', extracted_text=img_doc['img_text'])
 
