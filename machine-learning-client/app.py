@@ -1,9 +1,9 @@
-from flask import Flask, request
-from PIL import Image
+from flask import Flask, request,render_template, redirect, flash
+# from PIL import Image
 from flask_pymongo import PyMongo
 import os, glob, requests
 # import handprint
-
+from werkzeug.utils import secure_filename
 
 # setup
 app = Flask(__name__)
@@ -12,6 +12,16 @@ app.secret_key = os.urandom(24)
 client = PyMongo(app)
 
 
+UPLOAD_FOLDER = os.getcwd()
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    '''
+    check for allowed extensions
+    '''
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 
@@ -37,18 +47,19 @@ def get_raw_text_data():
     '''
     function returns the text read by handprint
     '''
-    text_files =  glob.glob("*-microsoft.txt")
-    return text_files 
+    text_file =  glob.glob("*-microsoft.txt")
+    return text_file[0]
 
-def print_extracted_text(texts):
+def get_extracted_text(text):
     '''
     function prints the text read from handwritten content 
     read by handprint 
     '''
-    for text in texts:
-        with open(text) as file:
-            print(" ".join(file.readlines()))
-        file.close()
+    complete_text = ""
+    with open(text) as file:
+        complete_text += " ".join(file.readlines())
+    file.close()
+    return complete_text
 
 def delete_process_files():
     '''
@@ -65,39 +76,46 @@ def delete_process_files():
 
 
 
+def process_image():
+    images = get_images()
 
-
+    for image in images:
+        #     print(image)
+        os.system("handprint -s microsoft -e " + image)
+        # annotated_images = get_annotated_images()
+        # # TODO: save annontated imahes somewhere
+        text = get_extracted_text(get_raw_text_data())
+        # delete_process_files()
+        return text
+    
 # routes
-@app.route('/process', methods=["GET"])
+@app.route('/', methods=['GET','POST'])
 def process():
     if request.method == "GET":
-        print(request, file=os.stderr)
-        # TODO: get image from request and save it
-        return "received"
-
+    #     print(request, file=os.stderr)
+    #     # TODO: get image from request and save it
+    #     return "received"
+        return render_template('index.html')
     
-        # if request.files.get("image"):
-        #     # read the image in PIL format
-        #     image = request.files["image"].read()
-        #     image = Image.open(io.BytesIO(image))
-        #     img_str = str(image)
-
-
-
+    if request.method == "POST":
+         # check that file exists
+        if 'file' not in request.files:
+            redirect('/')    
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            print("hi")
+            return redirect('/')
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file.save(secure_filename(file.filename))
+            text = process_image() # get text 
+            delete_process_files() # delete uploaded images 
+            return  render_template('results.html', extracted_text=text) # TODO: display result in web app instead of here  
 
 
 # run server
 if __name__ == "__main__":    
-    # # TODO:  # get image uploaded on the web application  
-    # # for now, we're using a sample image from Google 
-    # images = get_images() # fetch images in the local directory 
-    # # call the tool on the images in the directory 
-    # for image in images:
-    #     print(image)
-    #     os.system("handprint -s microsoft -e " + image)
-    # annotated_images = get_annotated_images()
-    # # TODO: save annontated imahes somewhere
-    # print_extracted_text(get_raw_text_data())
-    # delete_process_files()
-
-    app.run(host="0.0.0.0", port=3000)
+    app.run(host="0.0.0.0", port=3002)

@@ -27,4 +27,4 @@ services:
     volumes:
       - .:/machine-learning-client
     ports:
-      - "3001:3000"
+      - "3002:3002"
