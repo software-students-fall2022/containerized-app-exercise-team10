@@ -29,6 +29,7 @@ jobs:
           pip install Pillow
           pip install Image
           
+          
       - name: Run tests
         run: |
           cd machine-learning-client
