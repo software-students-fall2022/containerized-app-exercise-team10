@@ -1,8 +1,8 @@
-# requests
-# flask
-# flask-pymongo
-# handprint
-# Pillow
-# Image
-# numpy
-# Werkzeug
+requests
+flask
+flask-pymongo
+handprint
+Pillow
+Image
+numpy
+Werkzeug

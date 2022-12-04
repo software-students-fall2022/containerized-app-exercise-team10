@@ -2,7 +2,7 @@ from flask import Flask, jsonify, render_template, request, redirect, flash
 from werkzeug.utils import secure_filename
 from pymongo import MongoClient
 import pymongo
-import os, glob, requests
+import os, glob, requests, sys
 
 
 
@@ -15,7 +15,7 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 
 def get_db():
-    client = MongoClient(host='db',
+    client = MongoClient(host='localhost',
                          port=27017)
     db = client["project4"]
     return db
@@ -24,7 +24,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-
+    
 
 
 # routes
@@ -46,6 +46,9 @@ def results():
     img_doc = db.images.find_one(
         {'_id' : id}
     )
+
+    print(f'id:{id}', file=sys.stderr)
+    print(img_doc, file=sys.stderr)
 
     return render_template('results.html', extracted_text=img_doc['img_text'])
 

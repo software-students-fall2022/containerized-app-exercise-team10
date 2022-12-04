@@ -2,7 +2,7 @@ from flask import Flask, request,render_template, redirect, flash
 # from PIL import Image
 from pymongo import MongoClient
 import pymongo
-import os, glob, requests
+import os, glob, requests, sys
 # import handprint
 from werkzeug.utils import secure_filename
 
@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 def get_db():
-    client = MongoClient(host='db',
+    client = MongoClient(host='localhost',
                         port=27017)
     db = client["project4"]
     return db
@@ -125,8 +125,10 @@ def process():
                 'img_text' : text
             }).inserted_id
 
+            print(f'id:{id}', file=sys.stderr)
+
             delete_process_files() # delete uploaded images 
-            return redirect(f'http://localhost:3000/results?id&{id}')
+            return redirect(f'http://localhost:3000/results?id={id}')
 
 
 # run server
