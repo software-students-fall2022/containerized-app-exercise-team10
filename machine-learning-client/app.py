@@ -117,7 +117,7 @@ def process():
             
             # db connection
             client = get_db()
-            db = client['project4']
+            db = client['project_four']
 
             # insert text into db
             id = db.images.insert_one({

@@ -28,7 +28,6 @@ def get_db():
         # render_template('error.html', error=e) # render the edit template
         print(' *', "Failed to connect to MongoDB")
     db = client.project_four
-    print(db.list_collection_names(), sys.stderr)
     return db
 
 
@@ -48,7 +47,6 @@ def homepage():
 @app.route('/results')
 def results():
     db = get_db()
-    print(db.list_collection_names())
 
     id = request.args.get('id')
 
