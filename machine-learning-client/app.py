@@ -14,7 +14,7 @@ app.secret_key = os.urandom(24)
 def get_db():
     client = MongoClient(host='db',
                         port=27017)
-    db = client["project4"]
+    db = client.project_four
     return db
 
 
@@ -121,13 +121,16 @@ def process():
             text = process_image() # get text 
             
             db = get_db()
+            
+
 
             id = db.images.insert_one({
                 'img_text' : text
             }).inserted_id
-
+            print(db.images.find_one({'_id' : id} ), file=sys.stderr)
+            print("here", file=sys.stderr)
             print(f'id:{id}', file=sys.stderr)
-
+            print(db.list_collection_names(), file=sys.stderr)
             delete_process_files() # delete uploaded images 
             return redirect(f'http://localhost:3000/results?id={id}')
 
