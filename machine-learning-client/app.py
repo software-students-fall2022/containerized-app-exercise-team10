@@ -79,7 +79,7 @@ def process_image():
     images = get_images()
 
     for image in images:
-        print(f"handprint -s microsoft -e ||{image}||", file=sys.stderr)
+        # print(f"handprint -s microsoft -e ||{image}||", file=sys.stderr)
 
         # run handprint
         os.system(f"handprint -s microsoft -e {image}")
