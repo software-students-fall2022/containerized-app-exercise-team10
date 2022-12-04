@@ -3,6 +3,7 @@ from werkzeug.utils import secure_filename
 from pymongo import MongoClient
 import pymongo
 import os, glob, requests, sys
+from bson.objectid import ObjectId
 
 
 
@@ -15,9 +16,20 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 
 def get_db():
-    client = MongoClient(host='localhost',
+    client = MongoClient(host='db',
                          port=27017)
-    db = client["project4"]
+    try:
+        # verify the connection works by pinging the database
+        # The ping command is cheap and does not require auth.
+        client.admin.command('ping')
+        # if we get here, the connection worked!
+        print(' *', 'Connected to MongoDB!',file=sys.stderr)
+    except Exception as e:
+        # the ping command failed, so the connection is not available.
+        # render_template('error.html', error=e) # render the edit template
+        print(' *', "Failed to connect to MongoDB")
+    db = client.project_four
+    print(db.list_collection_names(), sys.stderr)
     return db
 
 def allowed_file(filename):
@@ -40,11 +52,11 @@ def homepage():
 @app.route('/results')
 def results():
     db = get_db()
-
+    print(db.list_collection_names())
     id = request.args.get('id')
 
     img_doc = db.images.find_one(
-        {'_id' : id}
+        {'_id' : ObjectId(id)}
     )
 
     print(f'id:{id}', file=sys.stderr)

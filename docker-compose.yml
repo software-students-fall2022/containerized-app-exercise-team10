@@ -12,7 +12,7 @@ services:
   db:
     container_name: db
     image: mongo:latest
-    # hostname: test_mongodb
+    # hostname: localhost
     # environment:
     #   - MONGO_INITDB_DATABASE=animal_db
     #   - MONGO_INITDB_ROOT_USERNAME=root
