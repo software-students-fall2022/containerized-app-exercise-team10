@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, render_template, request, redirect, flash
 from werkzeug.utils import secure_filename
-from flask_pymongo import PyMongo
-import os, glob, requests
+from pymongo import MongoClient
+from bson.objectid import ObjectId
+import pymongo
+import os, glob, requests, sys
 
 
 
@@ -9,29 +11,20 @@ import os, glob, requests
 app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb://db:27017/project4'
 app.secret_key = os.urandom(24)
-client = PyMongo(app)
 
-
-UPLOAD_FOLDER = './'
-UPLOAD_FOLDER = os.getcwd()
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
-# def get_db():
-#     client = MongoClient(host='test_mongodb',
-#                          port=27017, 
-#                          username='root', 
-#                          password='pass',
-#                          authSource="admin")
-#     db = client["animal_db"]
-#     return db
+def get_db():
+    client = MongoClient(host='db',
+                        port=27017)
+    return client
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-
+    
 
 
 # routes
@@ -40,6 +33,26 @@ def homepage():
     # GET
     # if request.method == 'GET':
    return redirect("http://localhost:3002/")
+
+
+
+
+@app.route('/results')
+def results():
+    client = get_db()
+    db = client['project4']
+
+    id = request.args.get('id')
+
+    img_doc = db.images.find_one(
+        {'_id' : ObjectId(id)}
+    )
+
+    print(f'id:{id}', file=sys.stderr)
+    print(img_doc, file=sys.stderr)
+    client.close()
+
+    return render_template('results.html', extracted_text=img_doc['img_text'])
 
 
     # POST
