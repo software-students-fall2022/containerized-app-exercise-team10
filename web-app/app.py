@@ -12,10 +12,10 @@ app.secret_key = os.urandom(24)
 client = PyMongo(app)
 
 
-# UPLOAD_FOLDER = './'
-# UPLOAD_FOLDER = os.getcwd()
-# ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+UPLOAD_FOLDER = './'
+UPLOAD_FOLDER = os.getcwd()
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 # def get_db():
@@ -27,9 +27,9 @@ client = PyMongo(app)
 #     db = client["animal_db"]
 #     return db
 
-# def allowed_file(filename):
-#     return '.' in filename and \
-#            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 
@@ -38,12 +38,12 @@ client = PyMongo(app)
 @app.route('/', methods=['GET', 'POST'])
 def homepage():
     # GET
-    if request.method == 'GET':
-        return render_template('index.html')
+    # if request.method == 'GET':
+   return redirect("http://localhost:3002/")
 
 
     # POST
-    if request.method == 'POST':
+    # if request.method == 'POST':
         # check that file exists
         # if 'file' not in request.files:
         #     redirect('/')
@@ -74,38 +74,28 @@ def homepage():
         # img = Image.open(io.BytesIO(updated_img['img_original']))
 
 
-        return render_template(
-            'results.html') 
+        # return render_template(
+        #     'results.html') 
             # img_text=updated_img['img_text'], 
             # img_original_name=updated_img['img_original_name'],
             # image=img)
 
-
-
-
-
-
-
-
-
-
-
     # if request.method == 'GET':
     #     print('test')
     #     return render_template('index.html')
-    # #new extracted_text collection in db
-    # db = get_db()
-    # extrColl = db['extracted_text']
-    # # dic = {'test': 1}
-    # # extrColl.insert_one(dic)
+    # # #new extracted_text collection in db
+    # # db = get_db()
+    # # extrColl = db['extracted_text']
+    # # # dic = {'test': 1}
+    # # # extrColl.insert_one(dic)
     
-    # print(db.list_collection_names())
+    # # print(db.list_collection_names())
 
-    # f = request.files['file']
-    # f.save(secure_filename(f.filename))
-    # print(f, 'files saved')
+    # # f = request.files['file']
+    # # f.save(secure_filename(f.filename))
+    # # print(f, 'files saved')
 
-    # # from flask docs on file uploading
+    # # # from flask docs on file uploading
     # # files = request.files['file']
     # # files.save(secure_filename(files.filename))
     # if request.method == 'POST':
@@ -124,9 +114,9 @@ def homepage():
     #         filename = secure_filename(file.filename)
     #         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     #         flash("image uploaded")
-    #         send_image("http://ml-client:3000/process")
-    #         print("here")
-    #         return  render_template('result.html')# TODO: this is just temporary
+    #         # send_image("http://ml-client:3000/process")
+    #         # print("here")
+    #         return render_template('results.html')# TODO: this is just temporary
     # return render_template('result.html')
 
 
