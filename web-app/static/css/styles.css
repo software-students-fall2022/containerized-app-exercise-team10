@@ -1,47 +1,84 @@
-* {
-    box-sizing: border-box;
+:root{
+    --textcolor:#051923;
+    --main: #21F4DB;
+    --white: #f5fffa;
+    --hover: #97CC04
+  }
+
+body{
+    font-size:24px;
+    font-family: Inter;
+    color:var(--textcolor);
 }
 
-body {
-    font-size: 14px;
-}
 
 /******************* HEADER STYLES *******************/
 
-.header {
-    padding: 50px;
-    background: rgb(33, 244, 219);
+.header{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--main);
+    top:0;
+    left:0;
+    width:100vw;
+    min-height: 30vh;
 }
 
 .welcome {
     text-align: center;
-    color: rgba(0, 0, 0, 1);
     font-family: Inter;
     font-weight: Bold;
-    font-size: 48px;
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
 }
 
 .welcome-sub {
     text-align: center;
-    color: rgba(0, 0, 0, 1);
     font-family: Inter;
     font-weight: Bold;
-    font-size: 24px;
+    font-size: 2rem;
+    margin-bottom:7.5rem;
 }
 
-.upload {
+button{
+    display:block;
     text-align: center;
-    border: 2px solid black;
-    padding: 5px;
+    cursor:pointer;
+    border-radius:3rem;
+    background-color: var(--white);
+    color: var(--textcolor);
+    font-size:1.5rem;
+    padding-left:200px;
+    padding-right:200px;
+    padding-top:10px;
+    padding-bottom:10px;
+    margin-bottom: 15px;
 }
+
+button:hover{
+    background-color: var(--hover);
+}
+
 
 /******************* RESULTS STYLES *******************/
 
-.results-header {
-    font-size: 20px;
-    text-align: center;
+.content{
+    background-color: var(--white);
+    color: var(--textcolor);
 }
 
-.results {
+.results-header {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+#result{
+    margin-top:20px;
+    font-size:1.8rem;
+    display:block;
     text-align: center;
 }
