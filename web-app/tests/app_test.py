@@ -69,9 +69,6 @@ def test_get_db_exception_found(capsys):
 #    files.insert_one(imgObj)
 #    download_image_from_db(mockDb, imgObj, True)
 
-def test_smth():
-   assert client.get(url_for('results')).status_code==200
-
 
 
 
