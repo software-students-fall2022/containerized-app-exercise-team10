@@ -16,8 +16,9 @@ class Tests:
     # Valid Function Tests
     # -------------------------------------------------------------------
     # Valid get_images test: One file stored in directory
+
     def test_get_image(self):
-        images = get_images()
+        images = get_images(True)
         assert len(images) == 2
         assert images[0] == "testwrite.jpg"
         assert ".jpg" in images[0]
@@ -25,7 +26,7 @@ class Tests:
 
     # Valid get_raw_text_data test
     def test_get_raw_text_data(self):
-        file = get_raw_text_data()
+        file = get_raw_text_data(True)
         # Make sure it gets the correct file
         assert "txt" in file
         assert file == 'testTxtFile-microsoft.txt'
@@ -33,14 +34,14 @@ class Tests:
 
     # Valid get_annotated_iamges() test
     def test_get_annotated_images(self):
-        image = get_annotated_images()
+        image = get_annotated_images(True)
         assert len(image) == 1
         assert ".png" in image[0]
         assert "testImage2-microsoft.png" in image
 
     # Valid get_extracted_text test
     def test_get_extracted_text(self):
-        insert = get_raw_text_data()
+        insert = get_raw_text_data(True)
         text = get_extracted_text(insert)
         assert len(text) != 0
         assert text == "Hi there all"
@@ -48,13 +49,13 @@ class Tests:
 
     # Valid process_image test
     def test_process_image(self):
-        text = process_image()
+        text = process_image(True)
         assert len(text) != 0
         assert isinstance(text, str)
 
     #test for valid filename helper
     def test_allowed_file(self):
-        fileArr=get_images()
+        fileArr=get_images(True)
         file = fileArr[0]
         assert allowed_file(file)==True
 
@@ -62,13 +63,13 @@ class Tests:
 # -------------------------------------------------------------------
     # Invalid get_images test: Check that other file types not extracted
     def test_invalid_get_image(self):
-        images=get_images()
+        images=get_images(True)
         imageType = images[0].rsplit('.', 1)[1].lower()
         assert (imageType in ALLOWED_EXTENSIONS)
 
    # Invalid get_raw_text_data test: Checks that only text file is extracted
     def test_invalid_get_raw_text_data_invalid(self):
-        file = get_raw_text_data()
+        file = get_raw_text_data(True)
         assert (".jpg" in file) == False
 
 
@@ -110,7 +111,7 @@ class Tests:
         url = '/'
         client = app.test_client()
         response = client.post(url, data={
-            'picture': {get_images()[0]},
+            'picture': {get_images(True)[0]},
         })
         # assert response.status_code==200
         # assert response.request.path == "http://localhost:3000/results"
