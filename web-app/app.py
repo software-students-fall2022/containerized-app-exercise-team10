@@ -3,14 +3,17 @@ from werkzeug.utils import secure_filename
 from pymongo        import MongoClient
 from bson.objectid  import ObjectId
 import os, sys
-
+import gridfs
+import glob 
+import shutil
 
 
 ################## setup ##################
 app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb://db:27017/project4'
 app.secret_key = os.urandom(24)
-
+UPLOAD_FOLDER = './'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 
@@ -47,17 +50,25 @@ def homepage():
 @app.route('/results')
 def results():
     db = get_db()
-
+    fs = gridfs.GridFS(db)
     id = request.args.get('id')
 
     img_doc = db.images.find_one(
         {'_id' : ObjectId(id)}
     )
-
+    data = db.fs.files.find_one({'filename': img_doc['filename']})
+    my_id = data['_id']
+    output_data = fs.get(my_id).read()
+    output = open(UPLOAD_FOLDER + 'web-app/static/images/' +img_doc['filename'], "wb")
+    output.write(output_data)
+    output.close()
+    print("download_completed", file=sys.stderr)
+    images = glob.glob("*.png")
     # print(f'id:{id}', file=sys.stderr)
     # print(img_doc, file=sys.stderr)
+    filename = UPLOAD_FOLDER + 'web-app/static/images/' +img_doc['filename']
 
-    return render_template('results.html', extracted_text=img_doc['img_text'])
+    return render_template('results.html', extracted_text=img_doc['img_text'], image_filename=img_doc['filename'])
 
 
 ################## run server ##################
