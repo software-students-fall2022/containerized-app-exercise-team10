@@ -6,7 +6,7 @@
 
 # Handscribe
 
-Handscribe is an online tool that uses the handprint package to extract text from png, jpg, and jpeg images.
+Handscribe is an online tool that uses the handprint package to extract text from pdf, png, jpg, and jpeg images.
 
 ## Installation
 
@@ -16,7 +16,8 @@ This application uses Docker to containerize its parts. You must have [Docker](h
 
 ### 2. Download files
 
-[https://github.com/software-students-fall2022/containerized-app-exercise-team10/archive/refs/heads/main.zip](Download the files from GitHub) Create a new directory on your machine where you want to run the app and extract the files there.
+[Download the files from GitHub](https://github.com/software-students-fall2022/containerized-app-exercise-team10/archive/refs/heads/main.zip) <br> 
+Create a new directory on your machine where you want to run the app and extract the files there.
 
 ### 3. Run containers
 
