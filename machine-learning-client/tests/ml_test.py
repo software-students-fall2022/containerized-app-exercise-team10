@@ -6,7 +6,7 @@ from app import get_images
 from app import get_raw_text_data
 from app import get_extracted_text
 from app import process_image
-from app import get_annotated_images
+from app import get_annotated_image
 from app import allowed_file
 from app import ALLOWED_EXTENSIONS
 
@@ -34,9 +34,10 @@ class Tests:
 
     # Valid get_annotated_iamges() test
     def test_get_annotated_images(self):
-        image = get_annotated_images(True)
-        assert len(image) == 1
-        assert ".png" in image[0]
+        image = get_annotated_image(True)
+        # print(image)
+        assert len(image) >= 1
+        assert ".png" in image
         assert "testImage2-microsoft.png" in image
 
     # Valid get_extracted_text test
