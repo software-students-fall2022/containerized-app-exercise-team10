@@ -6,3 +6,4 @@ Pillow
 Image
 numpy
 Werkzeug
+# gridfs

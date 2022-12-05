@@ -2,6 +2,7 @@ from flask          import Flask, request,render_template, redirect, flash
 from pymongo        import MongoClient
 from werkzeug.utils import secure_filename
 import os, glob, sys
+import gridfs
 
 
 ################## setup ##################
@@ -44,7 +45,7 @@ def get_images(testing=False):
         remove_test_files(images)
     return images
 
-def get_annotated_images(testing=False):
+def get_annotated_image(testing=False):
     '''
     this function retrieves the annontated images returned by
     handprint.
@@ -52,7 +53,7 @@ def get_annotated_images(testing=False):
     images = glob.glob("*-microsoft.png")
     if not testing:
         remove_test_files(images)
-    return images
+    return images[0]
 
 def get_raw_text_data(testing=False):
     '''
@@ -110,6 +111,17 @@ def process_image(testing=False):
         # delete_process_files()
         return text
     
+def upload_image_to_db(db, annotated_image):
+    '''
+    function that takes in a Database object and the filepath of
+    the annptated image and uploads it onto the database using
+    GridFS
+    '''
+    annotated_image_data = open(annotated_image, "rb")
+    data = annotated_image_data.read()
+    fs = gridfs.GridFS(db)
+    fs.put(data, filename=annotated_image)
+    print("upload completed", file=sys.stderr)
 
 
 
@@ -138,14 +150,18 @@ def process():
 
             # get text 
             text = process_image() 
-            
+
+            # get annotated image
+            annotated_image = get_annotated_image()
             # db connection
             client = get_db()
             db = client['project_four']
 
+            upload_image_to_db(db, annotated_image) # upload annotated image onto MongoDB database 
             # insert text into db
             id = db.images.insert_one({
-                'img_text' : text
+                'img_text' : text,
+                'filename' : annotated_image
             }).inserted_id
 
             # print(db.images.find_one({'_id' : id} ), file=sys.stderr)
