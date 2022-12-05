@@ -107,6 +107,6 @@ Web app code coverage: **add\_%_here**
 [Danilo Montes](https://github.com/danilo-montes) \
 [Bhavig Pointi](https://github.com/bpointi) \
 [Brian Lee](https://github.com/shl622) \
-[]() \
+[Sarah Al-Towaity](https://github.com/sarah-altowaity1) \
 []() \
 [Misha Seo](https://github.com/mishaseo)
