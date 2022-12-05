@@ -1,0 +1,5 @@
+pytest
+flask
+pymongo
+requests
+coverage
