@@ -14,16 +14,48 @@
         <header class="header">
             <h1 class="welcome">Welcome to Handscribe!</h1>
             <h2 class="welcome-sub">Extract text from PDFs and images</h2>
-            <form action="/" method="POST" class="upload" enctype = "multipart/form-data">
-                <label for="files">Upload files:</label>
-                <input type="file" id="files" name="file"><br><br>
-                <input type="submit">
+            <form action="/" method="POST" enctype = "multipart/form-data">        
+                <div class="image-input">
+                <label>
+                    Upload
+                    <input type="file" accept="image/png,image/jpeg,image/jpg" name="file" onchange="showName(this.value)">
+                </label>
+                <p id="selected-image"></p>
+                </div>
+                <div class="submit-btn">
+                    <label>
+                        Handscribe!
+                        <input type="submit" onclick="startLoading()">
+                    </label>
+                </div>
+                <!-- The loading animation was referenced from: -->
+                <!-- https://codepen.io/tashfene/pen/raEqrJ -->
+                <div class="loader-container hidden">
+                    <p id="loader">Loading...</p>
+                    <span class="loader"><span class="loader-inner"></span></span>
+                </div>
             </form>
         </header>
 
-        <section class="content">
-            {% block container %}
-            {% endblock %}
-        </section>
+
+        <script>
+            function showName(val){
+                let filename = document.getElementById("selected-image");
+                let index = val.lastIndexOf("\\");
+                if (index>=0){
+                    val = val.substring(index+1);
+                }
+                filename.innerHTML=`${val}`
+            }
+
+            function startLoading(){
+                const loader = document.querySelector(".loader-container");
+                const submit = document.querySelector(".submit-btn");
+                const upload = document.querySelector(".image-input")
+                submit.classList.add("hidden");
+                upload.classList.add("hidden");
+                loader.classList.remove("hidden");
+            }
+        </script>
     </body>
 </html> 

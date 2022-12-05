@@ -1,48 +1,163 @@
+:root{
+    --textcolor:#051923;
+    --main: #21F4DB;
+    --white: #f5fffa;
+    --hover: #97CC04
+  }
+
 body{
     font-size:24px;
+    font-family: Inter;
+    color:var(--textcolor);
 }
-
-* {
-    box-sizing: border-box;
-}
-
 
 
 /******************* HEADER STYLES *******************/
 
-.header {
-    min-height:20px;
-    padding: 50px;
-    background: rgb(33, 244, 219);
+.header{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--main);
+    top:0;
+    left:0;
+    width:100vw;
+    min-height: 100vh;
 }
 
 .welcome {
     text-align: center;
-    color: rgba(0, 0, 0, 1);
     font-family: Inter;
     font-weight: Bold;
-    font-size: 2rem;
+    font-size: 5rem;
     margin-bottom: 1.5rem;
 }
 
 .welcome-sub {
     text-align: center;
-    color: rgba(0, 0, 0, 1);
     font-family: Inter;
     font-weight: Bold;
-    font-size: 1rem;
+    font-size: 2rem;
+    margin-bottom:10rem;
 }
 
-.upload {
-    text-align: center;
-    border: 2px solid black;
-    padding: 5px;
-    font-size: 1rem;
+.image-input{
+    align-items: center;
+    margin-bottom: 3rem;
 }
 
-/******************* RESULTS STYLES *******************/
+.submit-btn{
+    align-items:center;
+    margin-top: 3rem;
+}
 
-.results-header {
-    font-size: 20px;
+input{
+    display: none;
+}
+
+label{
+    display:block;
     text-align: center;
+    cursor:pointer;
+    border-radius:5rem;
+    background-color: var(--white);
+    color: var(--textcolor);
+    font-size:1.8rem;
+    padding-left:200px;
+    padding-right:200px;
+    padding-top:10px;
+    padding-bottom:10px;
+    margin-bottom: 15px;
+}
+
+#selected-image{
+    font-size: 1.4rem;
+    font-weight: 400px;
+
+}
+
+label:hover{
+    background-color: var(--hover);
+}
+
+.loader-container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    margin-top:40px;
+}
+
+#loader{
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: var(--textcolor)
+}
+.loader {
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    border: 4px solid var(--textcolor);
+    top: 50%;
+    animation: loader 2s infinite ease;
+  }
+  
+  .loader-inner {
+    display: block;
+    width: 100%;
+    background-color: var(--textcolor);
+    animation: loader-inner 2s infinite ease-in;
+  }
+  
+  @keyframes loader {
+    0% {
+      transform: rotate(0deg);
+    }
+    
+    25% {
+      transform: rotate(180deg);
+    }
+    
+    50% {
+      transform: rotate(180deg);
+    }
+    
+    75% {
+      transform: rotate(360deg);
+    }
+    
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes loader-inner {
+    0% {
+      height: 0%;
+    }
+    
+    25% {
+      height: 0%;
+    }
+    
+    50% {
+      height: 100%;
+    }
+    
+    75% {
+      height: 100%;
+    }
+    
+    100% {
+      height: 0%;
+    }
+  }
+
+  
+.hidden{
+    display: none;
 }
