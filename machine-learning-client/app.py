@@ -7,7 +7,7 @@ import os, glob, sys
 ################## setup ##################
 app = Flask(__name__)
 UPLOAD_FOLDER = './'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'pdf'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = os.urandom(24)
 # app.config['MONGO_URI'] = 'mongodb://db:27017/project4'
@@ -30,7 +30,7 @@ def get_images():
     function that fetches all images in the current 
     directory 
     '''
-    images = glob.glob("*.jpg") + glob.glob("*.png") + glob.glob("*.jpeg")
+    images = glob.glob("*.jpg") + glob.glob("*.png") + glob.glob("*.jpeg")+glob.glob("*.pdf")
     return images
 
 def get_annotated_images():
