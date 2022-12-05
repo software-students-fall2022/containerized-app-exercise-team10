@@ -1,5 +1,4 @@
 import pytest
-import pytest_flask
 from app import app
 from app import get_db
 from app import results
