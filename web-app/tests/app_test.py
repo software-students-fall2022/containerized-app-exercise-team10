@@ -6,6 +6,8 @@ from app import download_image_from_db
 #from requests import HTTPError
 import mongomock
 from mongomock.gridfs import enable_gridfs_integration
+import pytest_flask
+from flask import url_for
  
  
 client = mongomock.MongoClient()
@@ -56,18 +58,20 @@ def test_get_db_exception_found(capsys):
    assert db != client.project_four
    assert "* Failed to connect to MongoDB\n" in captured.out
 
-def test_download_image_from_db():
-   mockDb = mongomock.MongoClient().db
-   mongomock.gridfs.enable_gridfs_integration()
-   files = mockDb.collection
-   imgObj = {
-      'filename': 'test',
-      '_id': 68
-   }
-   files.insert_one(imgObj)
-   download_image_from_db(mockDb, imgObj)
+# def test_download_image_from_db():
+#    mockDb = mongomock.MongoClient().db
+#    mongomock.gridfs.enable_gridfs_integration()
+#    files = mockDb.files
+#    imgObj = {
+#       'filename': 'test',
+#       '_id': 68
+#    }
+#    # files.insert_one(imgObj)
+#    files.insert_one(imgObj)
+#    download_image_from_db(mockDb, imgObj, True)
 
-# def test_results():
+def test_smth():
+   assert client.get(url_for('results')).status_code==200
 
 
 
