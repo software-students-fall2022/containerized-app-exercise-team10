@@ -104,9 +104,9 @@ Web app code coverage: **add\_%_here**
 
 ## Authors
 
+[Sarah Al-Towaity](https://github.com/sarah-altowaity1) \
+[Rachel Andoh](https://github.com/rachel0lehcar) \
+[Brian Lee](https://github.com/shl622) \
 [Danilo Montes](https://github.com/danilo-montes) \
 [Bhavig Pointi](https://github.com/bpointi) \
-[]() \
-[]() \
-[Rachel Andoh](https://github.com/rachel0lehcar) \
 [Misha Seo](https://github.com/mishaseo)
