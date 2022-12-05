@@ -22,6 +22,7 @@ jobs:
           cd machine-learning-client
           python -m pip install --upgrade pip
           pip install pytest
+          pip install pytest-flask
           pip install requests
           pip install flask
           pip install flask-pymongo

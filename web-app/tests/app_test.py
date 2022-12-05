@@ -1,4 +1,5 @@
 import pytest
+import pytest_flask
 from app import app
 from app import get_db
 from app import results
@@ -17,12 +18,12 @@ def test_homepage_route():
    response = client.get(url)
    assert response.status_code==302
  
-"""def test_results_route():
-   url='/results'
-   client = app.test_client()
-   response = client.get(url)
-   assert response.status_code==200
-"""
+#def test_results_route():
+#   url='/results'
+#   client = app.test_client()
+#   response = client.get(url)
+#   assert response.status_code==200
+
 
 # def test_results():
 #    url = "/results"
@@ -31,9 +32,9 @@ def test_homepage_route():
 #    response = client.get(url,db)
 #    assert response.status_code==200
 
-def test_invalid_route():
+def test_invalid_route(flask_app):
    url='/home'
-   client = app.test_client()
+   client = flask_app.test_client()
    response = client.get(url)
    assert response.status_code==404
  
