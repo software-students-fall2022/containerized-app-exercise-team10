@@ -108,5 +108,5 @@ Web app code coverage: **add\_%_here**
 [Bhavig Pointi](https://github.com/bpointi) \
 []() \
 []() \
-[]() \
+[Rachel Andoh](https://github.com/rachel0lehcar) \
 [Misha Seo](https://github.com/mishaseo)
