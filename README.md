@@ -99,9 +99,9 @@ tests/ml_test.py       72      0   100%
 TOTAL                 135     20    85%
 ```
 
-Machine learning client code coverage: **68%**
+Machine learning client code coverage: **57%**
 
-Web app code coverage: **add\_%_here**
+Web app code coverage: **80%**
 
 ## Authors
 
