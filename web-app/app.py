@@ -7,6 +7,8 @@ import gridfs
 import glob 
 import shutil
 
+from db_helper import download_image_from_db
+
 
 ################## setup ##################
 app = Flask(__name__)
@@ -30,25 +32,28 @@ def get_db(client):
         # the ping command failed, so the connection is not available.
         # render_template('error.html', error=e) # render the edit template
         print(' *', "Failed to connect to MongoDB")
+        return
     db = client.project_four
     return db
 
-def download_image_from_db(db, img_doc):
-    '''
-    download image saved into the MongoDB database 
-    using GridFS and return the path of the saved image
-    '''
-    fs = gridfs.GridFS(db)
-    data = db.fs.files.find_one({'filename': img_doc['filename']})
-    my_id = data['_id']
-    output_data = fs.get(my_id).read()
-    output = open(UPLOAD_FOLDER + 'web-app/static/images/' +img_doc['filename'], "wb")
-    output.write(output_data)
-    output.close()
-    print("download_completed", file=sys.stderr)
-    images = glob.glob("*.png")
+# def download_image_from_db(db, img_doc, testing=False):
+#     '''
+#     download image saved into the MongoDB database 
+#     using GridFS and return the path of the saved image
+#     '''
+#     fs = gridfs.GridFS(db)
+#     data = db.fs.files.find_one({'filename': img_doc['filename']})
+#     print(db.fs.files.find({}))
+#     my_id = data['_id']
+#     output_data = fs.get(my_id).read()
+#     output = open(UPLOAD_FOLDER + 'web-app/static/images/' +img_doc['filename'], "wb")
+#     output.write(output_data)
+#     output.close()
+#     print("download_completed", file=sys.stderr)
+#     images = glob.glob("*.png")
 
-    return UPLOAD_FOLDER + 'web-app/static/images/' +img_doc['filename']
+#     return UPLOAD_FOLDER + 'web-app/static/images/' +img_doc['filename']
+
 
 
 def allowed_file(filename):
@@ -63,7 +68,7 @@ def homepage():
 
 
 @app.route('/results')
-def results():
+def results(testing=False):
     db = get_db(client)
 
     id = request.args.get('id')
@@ -74,7 +79,10 @@ def results():
 
     # print(f'id:{id}', file=sys.stderr)
     # print(img_doc, file=sys.stderr)
-    filename = download_image_from_db(db, img_doc)
+    if not testing:
+        filename = download_image_from_db(db, img_doc)
+    else:
+        filename = 'test_filename'
 
     return render_template('results.html', extracted_text=img_doc['img_text'], image_filename=img_doc['filename'])
 
