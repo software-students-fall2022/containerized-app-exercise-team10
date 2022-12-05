@@ -74,11 +74,20 @@ button:hover{
     font-size: 1.5rem;
     text-align: center;
     font-weight: bold;
+    margin-bottom: 20px;
 }
 
-#result{
-    margin-top:20px;
-    font-size:1.8rem;
-    display:block;
-    text-align: center;
+.result-container{
+    margin:auto;
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
+
+.result-text{
+    margin-top: 40px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
