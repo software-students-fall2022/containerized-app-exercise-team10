@@ -22,8 +22,16 @@ jobs:
           cd machine-learning-client
           python -m pip install --upgrade pip
           pip install pytest
-          pip install -i https://mirrors.aliyun.com/pypi/simple/ pymupdf==1.18.0
-          pip install -r requirements.txt
+          pip install requests
+          pip install flask
+          pip install flask-pymongo
+          pip install PyMuPDF --use-pep517
+          pip install Pillow
+          pip install Image
+          pip install handprint
+          pip install numpy
+          pip install Werkzeug
+  
           
       - name: Run tests
         run: |
