@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <title>Handscribe</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter&display=swap"/>
+        <link rel="stylesheet" href="../static/css/reset.css"/>
         <link rel="stylesheet" href="../static/css/styles.css"/>
     </head>
 
@@ -12,22 +13,14 @@
         <header class="header">
             <h1 class="welcome">Welcome to Handscribe!</h1>
             <h2 class="welcome-sub">Extract text from PDFs and images</h2>
-            <form action="/" method="POST" class="upload" enctype = "multipart/form-data">
-                <label for="files">Upload files:</label>
-                <input type="file" id="files" name="file"><br><br>
-                <input type="submit">
-            </form>
+            <div class="return">
+                <a href="/"><button>Return to upload page</button></a>
+            </div>
         </header>
 
-        <section class="content">`
+        <section class="content">
             {% block container %}
             {% endblock %}
         </section>
-
-
-        <footer class="footer">
-            <!-- If we want to put anything for the footer -->
-        </footer>
     </body>
-
 </html> 

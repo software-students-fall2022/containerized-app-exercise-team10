@@ -2,3 +2,5 @@ requests
 flask
 flask-pymongo
 Werkzeug
+# gridfs
+mongomock

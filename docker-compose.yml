@@ -12,13 +12,11 @@ services:
   db:
     container_name: db
     image: mongo:latest
-    # hostname: test_mongodb
+    # hostname: localhost
     # environment:
     #   - MONGO_INITDB_DATABASE=animal_db
     #   - MONGO_INITDB_ROOT_USERNAME=root
     #   - MONGO_INITDB_ROOT_PASSWORD=pass
-    volumes:
-      - ./db/init-db.js:/docker-entrypoint-initdb.d/init-db.js
     ports:
       - "27017:27017"
   ml-client:
@@ -27,4 +25,4 @@ services:
     volumes:
       - .:/machine-learning-client
     ports:
-      - "3001:3000"
+      - "3002:3002"

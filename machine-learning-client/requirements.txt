@@ -5,3 +5,5 @@ handprint
 Pillow
 Image
 numpy
+Werkzeug
+# gridfs
