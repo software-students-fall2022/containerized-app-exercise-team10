@@ -25,27 +25,42 @@ def allowed_file(filename):
 
 
 ################## Handprint functions ##################
-def get_images():
+
+def remove_test_files(images):
+        if 'testwrite.jpg' in images:
+            images.remove('testwrite.jpg')
+        if 'testImage2-microsoft.png' in images:
+            images.remove('testImage2-microsoft.png')
+        if 'testTxtFile-microsoft.txt' in images:
+            images.remove('testTxtFile-microsoft.txt')
+
+def get_images(testing=False):
     '''
     function that fetches all images in the current 
     directory 
     '''
-    images = glob.glob("*.jpg") + glob.glob("*.png") + glob.glob("*.jpeg")+glob.glob("*.pdf")
+    images = glob.glob("*.jpg") + glob.glob("*.png") + glob.glob("*.jpeg") + glob.glob("*.pdf")
+    if not testing:
+        remove_test_files(images)
     return images
 
-def get_annotated_images():
+def get_annotated_images(testing=False):
     '''
     this function retrieves the annontated images returned by
     handprint.
     '''
     images = glob.glob("*-microsoft.png")
+    if not testing:
+        remove_test_files(images)
     return images
 
-def get_raw_text_data():
+def get_raw_text_data(testing=False):
     '''
     function returns the text read by handprint
     '''
     text_file =  glob.glob("*-microsoft.txt")
+    if not testing:
+        remove_test_files(text_file)
     return text_file[0]
 
 def get_extracted_text(text):
@@ -75,8 +90,11 @@ def delete_process_files(filename):
             filename in item:
             os.remove(os.path.join(curr_dir, item))
 
-def process_image():
-    images = get_images()
+def process_image(testing=False):
+    if not testing:
+        images = get_images()
+    else:
+        images = get_images(True)
 
     for image in images:
         # print(f"handprint -s microsoft -e ||{image}||", file=sys.stderr)
@@ -84,7 +102,10 @@ def process_image():
         # run handprint
         os.system(f"handprint -s microsoft -e {image}")
 
-        text = get_extracted_text(get_raw_text_data())
+        if not testing:
+            text = get_extracted_text(get_raw_text_data())
+        else:
+            text = get_extracted_text(get_raw_text_data(True))
 
         # delete_process_files()
         return text
