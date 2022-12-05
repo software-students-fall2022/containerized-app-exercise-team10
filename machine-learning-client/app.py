@@ -45,7 +45,7 @@ def get_images(testing=False):
         remove_test_files(images)
     return images
 
-def get_annotated_images(testing=False):
+def get_annotated_image(testing=False):
     '''
     this function retrieves the annontated images returned by
     handprint.
@@ -53,7 +53,7 @@ def get_annotated_images(testing=False):
     images = glob.glob("*-microsoft.png")
     if not testing:
         remove_test_files(images)
-    return images
+    return images[0]
 
 def get_raw_text_data(testing=False):
     '''
