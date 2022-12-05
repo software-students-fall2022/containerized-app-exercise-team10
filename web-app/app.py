@@ -13,10 +13,10 @@ app.secret_key = os.urandom(24)
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
-
-def get_db():
-    client = MongoClient(host='db',
+client = MongoClient(host='db',
                          port=27017)
+                         
+def get_db(client):
     try:
         # verify the connection works by pinging the database
         # The ping command is cheap and does not require auth.
@@ -46,7 +46,7 @@ def homepage():
 
 @app.route('/results')
 def results():
-    db = get_db()
+    db = get_db(client)
 
     id = request.args.get('id')
 
