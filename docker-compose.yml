@@ -17,8 +17,6 @@ services:
     #   - MONGO_INITDB_DATABASE=animal_db
     #   - MONGO_INITDB_ROOT_USERNAME=root
     #   - MONGO_INITDB_ROOT_PASSWORD=pass
-    volumes:
-      - ./db/init-db.js:/docker-entrypoint-initdb.d/init-db.js
     ports:
       - "27017:27017"
   ml-client:
