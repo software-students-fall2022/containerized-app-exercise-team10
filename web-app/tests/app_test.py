@@ -17,12 +17,12 @@ def test_homepage_route():
    response = client.get(url)
    assert response.status_code==302
  
-#def test_results_route():
-#   url='/results'
-#   client = app.test_client()
-#   response = client.get(url)
-#   assert response.status_code==200
-
+"""def test_results_route():
+   url='/results'
+   client = app.test_client()
+   response = client.get(url)
+   assert response.status_code==200
+"""
 
 # def test_results():
 #    url = "/results"
@@ -31,9 +31,9 @@ def test_homepage_route():
 #    response = client.get(url,db)
 #    assert response.status_code==200
 
-def test_invalid_route(flask_app):
+def test_invalid_route():
    url='/home'
-   client = flask_app.test_client()
+   client = app.test_client()
    response = client.get(url)
    assert response.status_code==404
  
