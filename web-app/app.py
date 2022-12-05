@@ -30,6 +30,7 @@ def get_db(client):
         # the ping command failed, so the connection is not available.
         # render_template('error.html', error=e) # render the edit template
         print(' *', "Failed to connect to MongoDB")
+        return
     db = client.project_four
     return db
 
@@ -63,7 +64,7 @@ def homepage():
 
 
 @app.route('/results')
-def results():
+def results(testing=False):
     db = get_db(client)
 
     id = request.args.get('id')
@@ -74,7 +75,8 @@ def results():
 
     # print(f'id:{id}', file=sys.stderr)
     # print(img_doc, file=sys.stderr)
-    filename = download_image_from_db(db, img_doc)
+    if not testing:
+        filename = download_image_from_db(db, img_doc)
 
     return render_template('results.html', extracted_text=img_doc['img_text'], image_filename=img_doc['filename'])
 
