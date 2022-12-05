@@ -25,27 +25,39 @@ def allowed_file(filename):
 
 
 ################## Handprint functions ##################
-def get_images():
+
+def remove_test_files(images):
+        images.discard('testwrite.jpg')
+        images.discard('testImage2-microsoft.png')
+        images.discard('testTxtFile-microsoft.txt')
+
+def get_images(testing=False):
     '''
     function that fetches all images in the current 
     directory 
     '''
     images = glob.glob("*.jpg") + glob.glob("*.png") + glob.glob("*.jpeg")
+    if not testing:
+        remove_test_files(images)
     return images
 
-def get_annotated_images():
+def get_annotated_images(testing=False):
     '''
     this function retrieves the annontated images returned by
     handprint.
     '''
     images = glob.glob("*-microsoft.png")
+    if not testing:
+        remove_test_files(images)
     return images
 
-def get_raw_text_data():
+def get_raw_text_data(testing=False):
     '''
     function returns the text read by handprint
     '''
     text_file =  glob.glob("*-microsoft.txt")
+    if not testing:
+        remove_test_files(text_file)
     return text_file[0]
 
 def get_extracted_text(text):
