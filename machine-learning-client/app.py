@@ -90,6 +90,17 @@ def process_image():
         # delete_process_files()
         return text
     
+def upload_image_to_db(db, annotated_image):
+    '''
+    function that takes in a Database object and the filepath of
+    the annptated image and uploads it onto the database using
+    GridFS
+    '''
+    annotated_image_data = open(annotated_image, "rb")
+    data = annotated_image_data.read()
+    fs = gridfs.GridFS(db)
+    fs.put(data, filename=annotated_image)
+    print("upload completed", file=sys.stderr)
 
 
 
@@ -121,14 +132,11 @@ def process():
 
             # get annotated image
             annotated_image = get_annotated_image()
-            annotated_image_data = open(annotated_image, "rb")
-            data = annotated_image_data.read()
             # db connection
             client = get_db()
             db = client['project_four']
-            fs = gridfs.GridFS(db)
-            fs.put(data, filename=annotated_image)
-            print("upload completed", file=sys.stderr)
+
+            upload_image_to_db(db, annotated_image) # upload annotated image onto MongoDB database 
             # insert text into db
             id = db.images.insert_one({
                 'img_text' : text,
