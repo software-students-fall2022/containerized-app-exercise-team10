@@ -10,7 +10,7 @@ jobs:
     timeout-minutes: 5
     strategy:
       matrix:
-        python-version: ["3"]
+        python-version: "3.9"
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
@@ -25,13 +25,13 @@ jobs:
           pip install requests
           pip install flask
           pip install flask-pymongo
-          pip install --upgrade numpy
-          pip install --upgrade PyMuPDF
-          # python -m pip install handprint --upgrade
-          pipx install handprint
+          pip install PyMuPDF --use-pep517
           pip install Pillow
           pip install Image
-          
+          pip install handprint
+          pip install numpy
+          pip install Werkzeug
+  
           
       - name: Run tests
         run: |
