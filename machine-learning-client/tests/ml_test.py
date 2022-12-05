@@ -49,7 +49,7 @@ class Tests:
 
     # Valid process_image test
     def test_process_image(self):
-        text = process_image()
+        text = process_image(True)
         assert len(text) != 0
         assert isinstance(text, str)
 

@@ -27,9 +27,12 @@ def allowed_file(filename):
 ################## Handprint functions ##################
 
 def remove_test_files(images):
-        images.discard('testwrite.jpg')
-        images.discard('testImage2-microsoft.png')
-        images.discard('testTxtFile-microsoft.txt')
+        if 'testwrite.jpg' in images:
+            images.remove('testwrite.jpg')
+        if 'testImage2-microsoft.png' in images:
+            images.remove('testImage2-microsoft.png')
+        if 'testTxtFile-microsoft.txt' in images:
+            images.remove('testTxtFile-microsoft.txt')
 
 def get_images(testing=False):
     '''
@@ -87,8 +90,11 @@ def delete_process_files(filename):
             filename in item:
             os.remove(os.path.join(curr_dir, item))
 
-def process_image():
-    images = get_images()
+def process_image(testing=False):
+    if not testing:
+        images = get_images()
+    else:
+        images = get_images(True)
 
     for image in images:
         # print(f"handprint -s microsoft -e ||{image}||", file=sys.stderr)
@@ -96,7 +102,10 @@ def process_image():
         # run handprint
         os.system(f"handprint -s microsoft -e {image}")
 
-        text = get_extracted_text(get_raw_text_data())
+        if not testing:
+            text = get_extracted_text(get_raw_text_data())
+        else:
+            text = get_extracted_text(get_raw_text_data(True))
 
         # delete_process_files()
         return text
