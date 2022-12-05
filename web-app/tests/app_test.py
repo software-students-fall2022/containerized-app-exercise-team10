@@ -6,7 +6,6 @@ from app import download_image_from_db
 #from requests import HTTPError
 import mongomock
 from mongomock.gridfs import enable_gridfs_integration
-import pytest_flask
 from flask import url_for
  
  
